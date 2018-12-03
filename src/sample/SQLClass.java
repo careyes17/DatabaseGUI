@@ -7,7 +7,12 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 
+// CheckStyle warning - Abbreviation intentional
 public class SQLClass {
+
+  private static String url = "jdbc:mysql://den1.mysql6.gear.host/integerdatabase";
+  private static String user = "integerdatabase";
+  private static String password = "";
 
   /**
    * Connects to the remote mysql database and prints "Connected" to the console once a connection
@@ -18,9 +23,6 @@ public class SQLClass {
     try {
       String driver = "com.mysql.cj.jdbc.Driver";
       Class.forName(driver);
-      String url = "***************";
-      String user = "***************";
-      String password = "***************";
 
       Connection connection = DriverManager.getConnection(url, user, password);
       System.out.println("Connected");
@@ -34,13 +36,15 @@ public class SQLClass {
   }
 
   /**
-   * Gets the single integer value stored in the database
+   * Gets the single integer value stored in the database.
    */
   public static ArrayList<String> get() throws Exception {
     try {
       Connection con = getConnection();
+      // Ignore FindBugs error - produced on Java 1.8
       PreparedStatement statement = con.prepareStatement("SELECT * FROM cars");
 
+      // Ignore FindBugs error - produced on Java 1.8
       ResultSet result = statement.executeQuery();
 
       ArrayList<String> array = new ArrayList<String>();
@@ -50,6 +54,9 @@ public class SQLClass {
 
       }
       System.out.println("All records have been selected!");
+      statement.close();
+      result.close();
+      con.close();
       return array;
 
     } catch (Exception e) {
@@ -57,4 +64,9 @@ public class SQLClass {
     }
     return null;
   }
+
+  public static void setPassword(String password) {
+    SQLClass.password = password;
+  }
+
 }

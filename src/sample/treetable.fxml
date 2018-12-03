@@ -7,7 +7,7 @@
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
   prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx"
   xmlns:fx="http://javafx.com/fxml/1" style="-fx-background-color: #303030;"
-  stylesheets="@treetablestyle.css" fx:controller="sample.Controller">
+  stylesheets="@treetablestyle.css" fx:controller="sample.TreeTableController">
   <JFXButton fx:id="updateAssignments" alignment="CENTER" buttonType="RAISED" layoutX="46.0"
     layoutY="26.0" onAction="#updateAssignments" prefHeight="30.0" prefWidth="100.0"
     style="-fx-background-color: #424242; -fx-text-fill: #ffffff; -fx-focus-traversable: false"

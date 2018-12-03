@@ -18,7 +18,7 @@ import javafx.scene.control.TreeTableColumn.CellDataFeatures;
 import javafx.scene.control.TreeTableView;
 import javafx.util.Callback;
 
-public class Controller {
+public class TreeTableController {
 
   @FXML
   JFXTreeTableView table;
@@ -26,7 +26,9 @@ public class Controller {
   // Temporary ObservableList that is appended to the default values preloaded
   ObservableList<Schedule> temporary = FXCollections.observableArrayList();
 
-  // Shared variable that makes "appendRow" append a consecutive integer to make the functionality more apparent
+  /* Shared variable that makes "appendRow" append a consecutive integer to make the
+   * functionality more apparent
+   */
   static int tempvalue;
 
   /**
@@ -56,6 +58,7 @@ public class Controller {
   @FXML
   private void updateAssignments(ActionEvent event) throws IOException {
 
+    //Creates "Subject" Column
     JFXTreeTableColumn<Schedule, String> subject = new JFXTreeTableColumn("Subject");
     subject.setPrefWidth(100);
 
@@ -69,8 +72,7 @@ public class Controller {
           }
         });
 
-    //subject, tutor, comment, date, time, location
-
+    //Creates "Tutor" Column
     JFXTreeTableColumn<Schedule, String> tutor = new JFXTreeTableColumn("Tutor");
     tutor.setPrefWidth(100);
 
@@ -84,11 +86,13 @@ public class Controller {
           }
         });
 
+    //Creates "Comment" Column
     JFXTreeTableColumn<Schedule, String> comment = new JFXTreeTableColumn("Comment");
     comment.setPrefWidth(100);
 
     comment.setCellValueFactory(
-        new Callback<TreeTableColumn.CellDataFeatures<Schedule, String>, ObservableValue<String>>() {
+        new Callback<TreeTableColumn.CellDataFeatures<Schedule, String>,
+            ObservableValue<String>>() {
 
           @Override
           public ObservableValue<String> call(
@@ -97,11 +101,13 @@ public class Controller {
           }
         });
 
+    //Creates "Date" Column
     JFXTreeTableColumn<Schedule, String> date = new JFXTreeTableColumn("Date");
     date.setPrefWidth(100);
 
     date.setCellValueFactory(
-        new Callback<TreeTableColumn.CellDataFeatures<Schedule, String>, ObservableValue<String>>() {
+        new Callback<TreeTableColumn.CellDataFeatures<Schedule, String>,
+            ObservableValue<String>>() {
 
           @Override
           public ObservableValue<String> call(
@@ -110,11 +116,13 @@ public class Controller {
           }
         });
 
+    //Creates "Time" Column
     JFXTreeTableColumn<Schedule, String> time = new JFXTreeTableColumn("Time");
     time.setPrefWidth(100);
 
     time.setCellValueFactory(
-        new Callback<TreeTableColumn.CellDataFeatures<Schedule, String>, ObservableValue<String>>() {
+        new Callback<TreeTableColumn.CellDataFeatures<Schedule, String>,
+            ObservableValue<String>>() {
 
           @Override
           public ObservableValue<String> call(
@@ -123,11 +131,13 @@ public class Controller {
           }
         });
 
+    //Creates "Location" Column
     JFXTreeTableColumn<Schedule, String> location = new JFXTreeTableColumn("Location");
     location.setPrefWidth(100);
 
     location.setCellValueFactory(
-        new Callback<TreeTableColumn.CellDataFeatures<Schedule, String>, ObservableValue<String>>() {
+        new Callback<TreeTableColumn.CellDataFeatures<Schedule, String>,
+            ObservableValue<String>>() {
 
           @Override
           public ObservableValue<String> call(
@@ -136,51 +146,30 @@ public class Controller {
           }
         });
 
-    ObservableList<Schedule> Schedule = FXCollections.observableArrayList();
-    Schedule
+    // Appends default rows to the table views
+    ObservableList<Schedule> schedule = FXCollections.observableArrayList();
+    schedule
         .add(new Schedule("Calculus 2", "Carlos", "Integrals", "11/28/18", "3:00", "Library 203"));
-    Schedule.add(
+    schedule.add(
         new Schedule("Calculus 1", "Hunter", "Derivatives", "11/28/18", "4:00", "Library 204"));
-    Schedule
+    schedule
         .add(new Schedule("Physics", "Brian", "2D movement", "12/03/18", "5:30", "Library 205"));
-    Schedule.add(new Schedule("Software", "Martin", "Loops", "12/04/18", "15:00", "Library 206"));
+    schedule.add(new Schedule("Software", "Martin", "Loops", "12/04/18", "15:00", "Library 206"));
 
+    // Gets size of "temporary" which contains non-hardcoded row information
     int temporarySize = temporary.size();
 
+    // Appends all the "temporary" rows onto the hardcoded rows in "Schedule"
     for (int i = 0; i < temporarySize; i++) {
-      Schedule.add(temporary.get(i));
+      schedule.add(temporary.get(i));
     }
 
-    final TreeItem<Schedule> root = new RecursiveTreeItem<Schedule>(Schedule,
+    // Takes all rows and submits them to the tree table
+    final TreeItem<Schedule> root = new RecursiveTreeItem<Schedule>(schedule,
         RecursiveTreeObject::getChildren);
     table.getColumns().setAll(subject, tutor, comment, date, time, location);
     table.setRoot(root);
     table.setShowRoot(false);
-  }
-
-  /**
-   * Deals with populating the ObservableList array with fields.
-   */
-  class Schedule extends RecursiveTreeObject<Schedule> {
-
-    StringProperty subject;
-    StringProperty tutor;
-    StringProperty comment;
-    StringProperty date;
-    StringProperty time;
-    StringProperty location;
-
-    public Schedule(String subject, String tutor, String comment, String date, String time,
-        String location) {
-      this.subject = new SimpleStringProperty(subject);
-      this.tutor = new SimpleStringProperty(tutor);
-      this.comment = new SimpleStringProperty(comment);
-      this.date = new SimpleStringProperty(date);
-      this.time = new SimpleStringProperty(time);
-      this.location = new SimpleStringProperty(location);
-    }
-
-
   }
 
 }
