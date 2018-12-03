@@ -1,0 +1,32 @@
+.jfx-tree-table-view {
+  -fx-tree-table-color: #424242;
+  -fx-tree-table-rippler-color: #424242;
+  -jfx-header-color: #949494;
+}
+
+.jfx-tree-table-view .column-header {
+  -fx-border-color: #424242 -fx-box-border, -fx-control-inner-background;
+  -fx-background-color: #424242;
+}
+
+.jfx-tree-table-view > .virtual-flow > .clipped-container > .sheet > .tree-table-row-cell:filled:selected {
+  -fx-background-color: #e0e0e0;
+}
+
+.jfx-tree-table-view {
+  -fx-background-color: #949494;
+}
+
+.jfx-tree-table-view .tree-table-row-cell {
+  -fx-background-color: #949494;
+}
+
+.tree-table-row-cell .scroll-bar:horizontal {
+  -fx-background-color: #949494;
+}
+
+.jfx-tree-table-view .column-resize-line {
+  -fx-background-color: #434343;
+  -fx-border-color: #434343;
+  -fx-alternative-column-fill-visible: false;
+}
