@@ -10,8 +10,11 @@ import java.util.ArrayList;
 // CheckStyle warning - Abbreviation intentional
 public class SQLClass {
 
+  //URL for the database used in this program. This link contains the database extension.
   private static String url = "jdbc:mysql://den1.mysql6.gear.host/integerdatabase";
+  //This is the username that my database utilizes.
   private static String user = "integerdatabase";
+  //This is the password that my database needs to be accessed. This is input by the user.
   private static String password = "";
 
   /**
