@@ -1,5 +1,6 @@
 package sample;
 
+import com.jfoenix.controls.JFXTextArea;
 import com.jfoenix.controls.JFXTreeTableColumn;
 import com.jfoenix.controls.JFXTreeTableView;
 import com.jfoenix.controls.RecursiveTreeItem;
@@ -12,6 +13,8 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeTableColumn;
 import javafx.scene.control.TreeTableColumn.CellDataFeatures;
@@ -23,13 +26,55 @@ public class TreeTableController {
   @FXML
   JFXTreeTableView table;
 
+  @FXML
+  JFXTextArea updateField;
+
+  @FXML
+  Label errorMessage;
+
   // Temporary ObservableList that is appended to the default values preloaded
   ObservableList<Schedule> temporary = FXCollections.observableArrayList();
 
   /* Shared variable that makes "appendRow" append a consecutive integer to make the
    * functionality more apparent
    */
-  static int tempvalue;
+  //static int tempvalue;
+
+  /**
+   * Updates the last row of the database table with the integer found in the "updateField" text
+   * area.
+   */
+  @FXML
+  private void updateLastRow(ActionEvent event) throws Exception {
+    //will store the integer value stored in updateField
+    int tempvalue = 0;
+    //boolean value used to prevent the ActionEvent from continuing integer isn't given
+    boolean passCondition = false;
+    //tries to get an integer value from the "updateField" text field
+    try {
+      tempvalue = Integer.parseInt(updateField.getText());
+      //enabling "passCondition" allows database functionality to proceed
+      passCondition = true;
+    } catch (Exception e) {
+      System.out.println("Integer was not entered.");
+      errorMessage.setVisible(true);
+    }
+    if (passCondition) {
+      errorMessage.setVisible(false);
+      try {
+        //Updates the last table row, taking "tempvalue" as the replacement integer
+        SQLClass.updateRecord(tempvalue);
+      } catch (Exception e) {
+        System.out.println("Could not update the table.");
+      }
+      //Automatically synchronizes database without having to click "Load Database"
+      try {
+        updateAssignments(new ActionEvent());
+      } catch (IOException e) {
+        e.printStackTrace();
+      }
+    }
+  }
 
   /**
    * Takes an integer value from a remote database and sets that as a default value for the
@@ -37,19 +82,40 @@ public class TreeTableController {
    */
   @FXML
   private void appendRow(ActionEvent event) throws Exception {
-    String subject = "[" + tempvalue + "]";
-    String tutor = "[" + tempvalue + "]";
-    String comment = "[" + tempvalue + "]";
-    String date = "[" + tempvalue + "]";
-    String time = "[" + tempvalue + "]";
-    String location = "[" + tempvalue + "]";
-    temporary.add(new Schedule(subject, tutor, comment, date, time, location));
+    //will store the integer value stored in updateField
+    int tempvalue = 0;
+    //boolean value used to prevent the ActionEvent from continuing integer isn't given
+    boolean passCondition = false;
+    //tries to get an integer value from the "updateField" text field
     try {
-      updateAssignments(new ActionEvent());
-    } catch (IOException e) {
-      e.printStackTrace();
+      tempvalue = Integer.parseInt(updateField.getText());
+      //enabling "passCondition" allows database functionality to proceed
+      passCondition = true;
+    } catch (Exception e) {
+      System.out.println("Integer was not entered.");
+      errorMessage.setVisible(true);
     }
-    tempvalue++;
+    if (passCondition) {
+      errorMessage.setVisible(false);
+      //appends (adds row) integer value in "tempvalue" to the end of the database
+      SQLClass.addRecord(tempvalue);
+      /*
+      String subject = "[" + tempvalue + "]";
+      String tutor = "[" + tempvalue + "]";
+      String comment = "[" + tempvalue + "]";
+      String date = "[" + tempvalue + "]";
+      String time = "[" + tempvalue + "]";
+      String location = "[" + tempvalue + "]";
+      temporary.add(new Schedule(subject, tutor, comment, date, time, location));
+      */
+      //Automatically synchronizes database without having to click "Load Database"
+      try {
+        updateAssignments(new ActionEvent());
+      } catch (IOException e) {
+        e.printStackTrace();
+      }
+      //tempvalue++;
+    }
   }
 
   /**
@@ -59,7 +125,7 @@ public class TreeTableController {
   private void updateAssignments(ActionEvent event) throws IOException {
 
     //Creates "Subject" Column
-    JFXTreeTableColumn<Schedule, String> subject = new JFXTreeTableColumn("Subject");
+    JFXTreeTableColumn<Schedule, String> subject = new JFXTreeTableColumn("Column I");
     subject.setPrefWidth(100);
 
     subject.setCellValueFactory(
@@ -73,7 +139,7 @@ public class TreeTableController {
         });
 
     //Creates "Tutor" Column
-    JFXTreeTableColumn<Schedule, String> tutor = new JFXTreeTableColumn("Tutor");
+    JFXTreeTableColumn<Schedule, String> tutor = new JFXTreeTableColumn("Column II");
     tutor.setPrefWidth(100);
 
     tutor.setCellValueFactory(
@@ -87,7 +153,7 @@ public class TreeTableController {
         });
 
     //Creates "Comment" Column
-    JFXTreeTableColumn<Schedule, String> comment = new JFXTreeTableColumn("Comment");
+    JFXTreeTableColumn<Schedule, String> comment = new JFXTreeTableColumn("Column III");
     comment.setPrefWidth(100);
 
     comment.setCellValueFactory(
@@ -102,7 +168,7 @@ public class TreeTableController {
         });
 
     //Creates "Date" Column
-    JFXTreeTableColumn<Schedule, String> date = new JFXTreeTableColumn("Date");
+    JFXTreeTableColumn<Schedule, String> date = new JFXTreeTableColumn("Column IV");
     date.setPrefWidth(100);
 
     date.setCellValueFactory(
@@ -117,7 +183,7 @@ public class TreeTableController {
         });
 
     //Creates "Time" Column
-    JFXTreeTableColumn<Schedule, String> time = new JFXTreeTableColumn("Time");
+    JFXTreeTableColumn<Schedule, String> time = new JFXTreeTableColumn("Column V");
     time.setPrefWidth(100);
 
     time.setCellValueFactory(
@@ -132,7 +198,7 @@ public class TreeTableController {
         });
 
     //Creates "Location" Column
-    JFXTreeTableColumn<Schedule, String> location = new JFXTreeTableColumn("Location");
+    JFXTreeTableColumn<Schedule, String> location = new JFXTreeTableColumn("Column VI");
     location.setPrefWidth(100);
 
     location.setCellValueFactory(
@@ -148,13 +214,33 @@ public class TreeTableController {
 
     // Appends default rows to the table views
     ObservableList<Schedule> schedule = FXCollections.observableArrayList();
-    schedule
+    /*schedule
         .add(new Schedule("Calculus 2", "Carlos", "Integrals", "11/28/18", "3:00", "Library 203"));
     schedule.add(
         new Schedule("Calculus 1", "Hunter", "Derivatives", "11/28/18", "4:00", "Library 204"));
     schedule
         .add(new Schedule("Physics", "Brian", "2D movement", "12/03/18", "5:30", "Library 205"));
-    schedule.add(new Schedule("Software", "Martin", "Loops", "12/04/18", "15:00", "Library 206"));
+    schedule.add(new Schedule("Software", "Martin", "Loops", "12/04/18", "15:00", "Library 206"));*/
+
+    //Finds the integer value stored at each index of the database and creates a row for each
+    //element.
+    try {
+      System.out.println("Getting your query ready! This may take a moment...");
+      int tempInt = 0;
+      int tempSize = SQLClass.get().size();
+      //For all of the elements in the database
+      for (int counter = 0; counter < tempSize; counter++) {
+        //get the integer value stored at the current index
+        tempInt = Integer.parseInt(SQLClass.get().get(counter));
+        //append a new row with this value in all fields
+        schedule.add(
+            new Schedule("[" + tempInt + "]", "[" + tempInt + "]", "[" + tempInt + "]",
+                "[" + tempInt + "]", "[" + tempInt + "]",
+                "[" + tempInt + "]"));
+      }
+    } catch (Exception e) {
+      System.out.println("Update from was not successful.");
+    }
 
     // Gets size of "temporary" which contains non-hardcoded row information
     int temporarySize = temporary.size();

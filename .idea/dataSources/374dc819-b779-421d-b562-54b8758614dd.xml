@@ -909,5 +909,26 @@
       <DataType>int(11)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
+    <column id="228" parent="226" name="cars_pk">
+      <Position>2</Position>
+      <DataType>int(11)|0s</DataType>
+      <NotNull>1</NotNull>
+      <SequenceIdentity>1</SequenceIdentity>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <index id="229" parent="226" name="cars_pk">
+      <ColNames>cars_pk</ColNames>
+      <Unique>1</Unique>
+      <Type>btree</Type>
+    </index>
+    <key id="230" parent="226" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>cars_pk</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <key id="231" parent="226" name="cars_pk">
+      <ColNames>cars_pk</ColNames>
+      <UnderlyingIndexName>cars_pk</UnderlyingIndexName>
+    </key>
   </database-model>
 </dataSource>

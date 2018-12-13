@@ -27,7 +27,8 @@
   </JFXTextField>
   <JFXPasswordField focusTraversable="true" fx:id="passfield" focusColor="#4d4d4d" labelFloat="true"
     layoutX="173.0" layoutY="231.0"
-    prefHeight="40.0" prefWidth="255.0" promptText="Password" style="-fx-text-fill: #ffffff"/>
+    prefHeight="40.0" prefWidth="255.0" promptText="Password"
+    style="-fx-text-fill: #ffffff; -fx-prompt-text-fill: #ffffff"/>
   <Label fx:id="errorlabel" visible="false" alignment="CENTER" layoutX="163.0" layoutY="358.0"
     prefHeight="17.0" prefWidth="274.0"
     text="Wrong password entered. Please try again." textFill="#e42727"/>

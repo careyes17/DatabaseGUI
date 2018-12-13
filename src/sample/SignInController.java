@@ -31,12 +31,12 @@ public class SignInController {
     } else {
       // Catches Exceptions caused by the SQLClass.get();
       // Loads the single integer value into "tempvalue"
-      try {
+      /*try {
         TreeTableController.tempvalue = Integer
             .parseInt(String.valueOf(SQLClass.get().toString().charAt(1)));
       } catch (Exception e) {
         System.out.println(e);
-      }
+      }*/
       // Loads the table view
       Stage stage = Main.getPrimaryStage();
       Parent root = FXMLLoader.load(getClass().getResource("treetable.fxml"));
