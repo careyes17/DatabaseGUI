@@ -21,6 +21,17 @@ import javafx.scene.control.TreeTableColumn.CellDataFeatures;
 import javafx.scene.control.TreeTableView;
 import javafx.util.Callback;
 
+/*
+ * This program adheres to GUI design principles in various ways. The program uses a simple sign-in
+ * interface that is then met with a UI that has descriptive buttons so the user knows what each
+ * action does. If the user does not use a certain button properly, error text will appear
+ * explaining what the user must do in order to accomplish their desired operation. This program
+ * uses a dark theme with high contrast text in order to allow users to comfortably view the table
+ * presented without straining their eyes. Mistakes are not punished in this program, as whenever a
+ * user inputs a command, whatever progress they make is always stored in the remote database upon
+ * successfully connecting.
+ */
+
 public class TreeTableController {
 
   @FXML
